@@ -32,7 +32,7 @@ directive('travisDashboard', function() {
                     loadingBuilds.splice(loadingBuilds.indexOf(build), 1);
                     activeJobs.forEach(function(job) {
                       jobs.push(job);
-                      if (jobs.state = 'started') {
+                      if (job.state === 'started') {
                         self.jobsStarted++;
                       }
                     });
