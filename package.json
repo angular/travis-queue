@@ -1,0 +1,14 @@
+{
+  "name": "travis-queue-dashboard",
+  "version": "1.0.0",
+  "description": "displays the current travis queue status for a given github org",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Igor Minar",
+  "license": "Apache 2",
+  "dependencies": {
+    "angular": "^1.4.0-rc.0"
+  }
+}
