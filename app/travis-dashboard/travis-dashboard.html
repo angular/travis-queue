@@ -17,7 +17,9 @@
     <td>{{$index + 1}}</td>
     <td>{{build.repo.slug}}</td>
     <td>{{build.state}}</td>
-    <td>{{build.started_at | date:"mediumTime"}} ({{ build.started_at | ago }} ago)</td>
+    <td>
+      <span ng-if="build.started_at">{{build.started_at | date:"mediumTime"}} ({{ build.started_at | ago }} ago)</span>
+    </td>
     <td ng-switch on="build.pull_request">
       <span ng-switch-when="true">PR <a href="https://github.com/{{build.repo.slug}}/pull/{{build.pull_request_number}}">#{{build.pull_request_number}}</span>
       <span ng-switch-when="false">{{build.commit.branch}} branch</span>
