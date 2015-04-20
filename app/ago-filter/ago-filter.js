@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('TravisQueueDashboard').
 filter('ago', function() {
   return function(dateString) {

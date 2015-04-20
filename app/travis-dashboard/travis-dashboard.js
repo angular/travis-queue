@@ -26,8 +26,8 @@ directive('travisDashboard', function() {
                 loadingRepos.splice(loadingRepos.indexOf(repo.slug), 1);
                 repoBuilds.forEach(function(build) {
                   builds.push(build);
-
                   loadingBuilds.push(build);
+
                   travisApi.getActiveJobsForBuild(build).then(function(activeJobs) {
                     loadingBuilds.splice(loadingBuilds.indexOf(build), 1);
                     activeJobs.forEach(function(job) {

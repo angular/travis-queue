@@ -1,5 +1,4 @@
-app = angular.module('TravisQueueDashboard', []);
+'use strict';
 
-//app.configure(['$injector', function($injectorProvider) {
-//
-//});
+angular.module('TravisQueueDashboard', []);
+

@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('TravisQueueDashboard').
 service('travisApi', ['$http', '$q', function TravisApi($http, $q) {
 
