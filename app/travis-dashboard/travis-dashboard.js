@@ -11,6 +11,7 @@ directive('travisDashboard', function() {
       var builds = self.builds = [];
       self.jobsTotal = 0;
       self.jobsStarted = 0;
+      self.now = Date.now();
 
       travisApi.getActiveRepos().
           then(function(repos) {

@@ -1,4 +1,4 @@
-<h2>Active builds: {{self.builds.length}} | Active jobs: {{self.jobsTotal}} (Running: {{self.jobsStarted}} | Queued: {{self.jobsTotal - self.jobsStarted}})</h2>
+<h2>Active builds: {{self.builds.length}} | Active jobs: {{self.jobsTotal}} (Running: {{self.jobsStarted}} + Queued: {{self.jobsTotal - self.jobsStarted}}) | {{self.now | date:'medium'}}</h2>
 
 <table ng-if="self.builds.length">
   <tr>
