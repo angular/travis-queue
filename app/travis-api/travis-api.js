@@ -8,11 +8,11 @@ service('travisApi', ['$http', '$q', function TravisApi($http, $q) {
 
 
   this.getActiveRepos = function() {
-    return $http.get('https://api.travis-ci.org/v3/repos',
-        {headers: {'Authorization': AUTH_TOKEN}}).
-        then(function (response) {
-          return self.repos = response.data.repositories.filter(function (repo) {
-            return (repo.active && repo.owner.login === 'angular');
+    return $http.get('https://api.travis-ci.org/repos?owner_name=angular',
+        {headers: {'Authorization': AUTH_TOKEN, 'Accept': API_V2_MIMETYPE}}).
+        then(function(response) {
+          return self.repos = response.data.repos.filter(function (repo) {
+            return repo.active;
           });
         });
   };
