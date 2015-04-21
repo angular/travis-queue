@@ -7,10 +7,10 @@
     <th>Repo</th>
     <th>Build Type</th>
     <th>Started At</th>
-    <th>Jobs</th>
     <th>Commit</th>
     <th>Author</th>
     <th>Message</th>
+    <th>Done</th>
     <th>Jobs</th>
   </tr>
   <tr ng-repeat="build in self.builds">
@@ -38,7 +38,6 @@
         {{build.started_at | date:"mediumTime"}} ({{ build.started_at | ago }} ago)
       </span>
     </td>
-    <td>{{build.jobCountActive || '?'}} / {{build.jobCountTotal}}</td>
     <td>
       <a href="https://github.com/{{build.repo.slug}}/commit/{{build.commit.sha}}"
          title="{{build.commit.message}}">
@@ -47,6 +46,7 @@
     </td>
     <td>{{build.commit.author_name}}</td>
     <td>{{build.pull_request_title || build.commit.message | limitTo: 120}}</td>
+    <td>{{build.jobCountActive || '?'}} / {{build.jobCountTotal}}</td>
     <td>
       <table ng-if="build.jobs.length">
         <tr>
