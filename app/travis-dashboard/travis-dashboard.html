@@ -1,8 +1,7 @@
-<h2>Active builds (Total: {{self.builds.length}})</h2>
+<h2>Active builds: {{self.builds.length}} | Active jobs: {{self.jobsTotal}} (Running: {{self.jobsStarted}} | Queued: {{self.jobsTotal - self.jobsStarted}})</h2>
 
 <table ng-if="self.builds.length">
   <tr>
-    <th>#</th>
     <th>Build</th>
     <th>State</th>
     <th>Repo</th>
@@ -12,9 +11,9 @@
     <th>Commit</th>
     <th>Author</th>
     <th>Message</th>
+    <th>Jobs</th>
   </tr>
   <tr ng-repeat="build in self.builds">
-    <td>{{$index + 1}}</td>
     <td>
       <a href="https://travis-ci.org/{{build.repo.slug}}/builds/{{build.id}}">
         #{{build.number}}
@@ -48,6 +47,30 @@
     </td>
     <td>{{build.commit.author_name}}</td>
     <td>{{build.pull_request_title || build.commit.message | limitTo: 120}}</td>
+    <td>
+      <table ng-if="build.jobs.length">
+        <tr>
+          <th>Job #</th>
+          <th>State</th>
+          <th>Started At</th>
+          <th>Queue</th>
+        </tr>
+        <tr ng-repeat="job in build.jobs">
+          <td>
+            <a href="https://travis-ci.org/{{job.repository_slug}}/jobs/{{job.id}}">
+              #{{job.number}}
+            </a>
+          </td>
+          <td>{{job.state}}</td>
+          <td>
+            <span ng-if="job.started_at">
+              {{job.started_at | date:"mediumTime"}} ({{ job.started_at | ago }} ago)
+            </span>
+          </td>
+          <td>{{job.queue}}</td>
+        </tr>
+      </table>
+    </td>
   </tr>
 </table>
 
@@ -56,65 +79,6 @@
 </div>
 
 <hr>
-
-<h2>Active jobs (Total: {{self.jobs.length}} | Running: {{self.jobsStarted}} | Queued: {{self.jobs.length - self.jobsStarted}})</h2>
-
-<table ng-if="self.jobs.length">
-  <tr>
-    <th>#</th>
-    <th>Build #</th>
-    <th>Job #</th>
-    <th>State</th>
-    <th>Repo</th>
-    <th>Build Type</th>
-    <th>Started At</th>
-    <th>Queue</th>
-    <th>Commit</th>
-    <th>Author</th>
-    <th>Message</th>
-  </tr>
-  <tr ng-repeat="job in self.jobs">
-    <td>{{$index + 1}}</td>
-    <td>
-      <a href="https://travis-ci.org/{{job.repository_slug}}/builds/{{job.build.id}}">
-        #{{job.build.number}}
-      </a>
-    </td>
-    <td>
-      <a href="https://travis-ci.org/{{job.repository_slug}}/jobs/{{job.id}}">
-        #{{job.number}}
-      </a>
-    </td>
-    <td>{{job.state}}</td>
-    <td>{{job.build.repo.slug}}</td>
-    <td ng-switch on="job.build.pull_request">
-      <span ng-switch-when="true">
-        <a href="https://github.com/{{job.repository_slug}}/pull/{{job.build.pull_request_number}}">
-          #{{job.build.pull_request_number}}
-        </a>
-      </span>
-      <span ng-switch-when="false">
-        <a href="https://github.com/{{job.repository_slug}}/tree/{{build.commit.branch}}">
-          {{job.commit.branch}}
-        </a>
-      </span>
-    </td>
-    <td>
-      <span ng-if="job.started_at">
-        {{job.started_at | date:"mediumTime"}} ({{ job.started_at | ago }} ago)
-      </span>
-    </td>
-    <td>{{job.queue}}</td>
-    <td>
-      <a href="https://github.com/{{job.repository_slug}}/commit/{{job.commit.sha}}"
-         title="{{job.commit.message}}">
-        {{job.commit.sha | limitTo:8}}
-      </a>
-    <td>{{job.commit.author_name}}</td>
-    <td>{{job.build.pull_request_title || job.commit.message | limitTo: 120}}</td>
-  </tr>
-</table>
-
 
 <div ng-if="self.builds.length === 0 && self.loadingRepos.length === 0">
   No active jobs found...

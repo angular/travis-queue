@@ -53,6 +53,7 @@ service('travisApi', ['$http', '$q', function TravisApi($http, $q) {
         var job = activePayload.job;
         job.commit = activePayload.commit;
         job.build = build;
+        (build.jobs = build.jobs || []).push(job);
         build.jobCountActive = build.jobCountActive ? build.jobCountActive + 1 : 1;
         return job;
       });

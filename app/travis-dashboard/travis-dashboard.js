@@ -9,7 +9,7 @@ directive('travisDashboard', function() {
     controller: ['travisApi', function TravisDashboard(travisApi) {
       var self = this;
       var builds = self.builds = [];
-      var jobs = self.jobs = [];
+      self.jobsTotal = 0;
       self.jobsStarted = 0;
 
       travisApi.getActiveRepos().
@@ -31,7 +31,7 @@ directive('travisDashboard', function() {
                   travisApi.getActiveJobsForBuild(build).then(function(activeJobs) {
                     loadingBuilds.splice(loadingBuilds.indexOf(build), 1);
                     activeJobs.forEach(function(job) {
-                      jobs.push(job);
+                      self.jobsTotal++;
                       if (job.state === 'started') {
                         self.jobsStarted++;
                       }
